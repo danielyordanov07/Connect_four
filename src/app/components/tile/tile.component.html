@@ -1,0 +1,3 @@
+<div class="tile" [ngClass]="cssClass" (click)="onClick()" role="button" tabindex="0" attr.aria-label="column {{tile.col}}, row {{tile.row}}">
+  <div class="disc" *ngIf="tile.value !== 0"></div>
+</div>

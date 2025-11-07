@@ -1,0 +1,7 @@
+<div class="board">
+  <div class="row" *ngFor="let row of board; let rowIndex = index">
+    <tile *ngFor="let tile of row; let colIndex = index"
+      [tile]="tile"
+      (tileClick)="onColumnClick(colIndex)"></tile>
+  </div>
+</div>

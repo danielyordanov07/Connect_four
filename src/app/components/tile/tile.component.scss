@@ -1,0 +1,23 @@
+* {
+    margin: 0;
+    padding: 0;
+    justify-self: center;
+    align-self: center;
+    text-align: center;
+}
+
+.tile {
+    width: 6vw;
+    aspect-ratio: 1 / 1; /* Ensures height = width */
+    border: 1px solid #000;
+    border-radius: 50%;
+    display: block;
+}
+
+.player1 {
+    background-color: red;
+}
+
+.player2 {
+    background-color: yellow;
+}

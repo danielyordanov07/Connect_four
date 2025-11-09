@@ -58,7 +58,7 @@ export class BoardComponent implements OnInit {
   // Try to drop a disc in the given column
   dropDisc(colIndex: number): boolean {
     if (this.gameOver) return false;
-    for (let row = this.ROWS; row > 0; row--) {
+    for (let row = this.ROWS - 1; row > 0; row--) {
       const tile = this.board[row][colIndex];
       console.log(this.board);
       if (tile.value === 0) {

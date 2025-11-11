@@ -1,1 +1,41 @@
-<p>popup-menu works!</p>
+<div class="mt-3 p-3 border rounded bg-light shadow" id="setMenu">
+    <button id="closeMenu" (click)="closeMenu()">X</button>
+    <h1 id="setHead">{{ message }}</h1>
+    <div class="content">
+        <div class="top">
+            <div class="container">
+                <label for="player1">Player 1</label>
+                <input type="text" id="Iplayer1" name="player1" placeholder="Enter name..." [(ngModel)]="data.p1n" />
+            </div>
+            <div class="container">
+                <label for="player2">Player 2</label>
+                <input type="text" id="Iplayer2" name="player2" placeholder="Enter name..." [(ngModel)]="data.p2n" />
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="container">
+                <label for="color1">P1 disc</label>
+                <select id="color1" [(ngModel)]="data.p1c">
+                    <option value="red">Red</option>
+                    <option value="yellow">Yellow</option>
+                    <option value="blue">Blue</option>
+                    <option value="green">Green</option>
+                    <option value="purple">Purple</option>
+                </select>
+            </div>
+            <div class="container">
+                <label for="color2">P2 disc</label>
+                <select id="color2" [(ngModel)]="data.p2c">
+                    <option value="red">Red</option>
+                    <option value="yellow">Yellow</option>
+                    <option value="blue">Blue</option>
+                    <option value="green">Green</option>
+                    <option value="purple">Purple</option>
+                </select>
+            </div>
+        </div>
+        <div class="buttons">
+            <button id="restartBtn" (click)="restartG()">Restart</button>
+        </div>
+    </div>
+</div>

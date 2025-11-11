@@ -1,7 +1,8 @@
 <router-outlet>
 <main class="main">
   <div class="content">
-    <board></board>
+    <popup-menu *ngIf="popup" (closePopup)="popupSwitch()" (restartGame)="restartGame(data)"></popup-menu>
+    <board [gameData]="data"></board>
   </div>
 </main>
 <router-outlet/>

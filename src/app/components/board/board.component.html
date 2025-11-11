@@ -1,3 +1,8 @@
+<div id="information">
+  <h1>{{ gameData.p1n }}: {{ gameData.p1c }}</h1>
+  <h2></h2>
+  <h1>{{ gameData.p2n }}: {{ gameData.p2c }}</h1>
+</div>
 <div class="board">
   <div class="row" *ngFor="let row of board; let rowIndex = index">
     <tile *ngFor="let tile of row; let colIndex = index"

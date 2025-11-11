@@ -1,12 +1,8 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { TileComponent } from '../tile/tile.component';
 import { CommonModule } from '@angular/common';
-
-interface TileModel {
-  row: number;
-  col: number;
-  value: 0 | 1 | 2;
-}
+import { ITileModel } from '../../interfaces/ITileModel.interface';
+import { IData } from '../../interfaces/IData.interface';
 
 @Component({
   selector: 'board',
@@ -18,35 +14,40 @@ interface TileModel {
     CommonModule
   ]
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent implements OnInit, OnChanges {
   readonly ROWS = 6;
   readonly COLS = 7;
 
-  board: TileModel[][] = [];
+  board: ITileModel[][] = [];
   currentPlayer: 1 | 2 = 1;
   gameOver = false;
 
-
-  @Output() gameWon = new EventEmitter<{ winner: number, winningTiles?: TileModel[] }>();
-  @Output() moveMade = new EventEmitter<void>();
+  @Input() gameData: IData = {
+    p1n: 'player 1',
+    p2n: 'player 2',
+    p1c: 'red',
+    p2c: 'yellow'
+  };
+  @Output() gameWon = new EventEmitter<{ winner: number, winningTiles?: ITileModel[] }>();
 
   ngOnInit(): void {
     this.resetBoard();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['gameData'] && !changes['gameData'].firstChange) {
+      // Data changed, reset the board
+      this.resetBoard();
+    }
   }
 
   resetBoard(): void {
     this.gameOver = false;
     this.currentPlayer = 1;
     this.board = [];
-    // for (let c = 0; c < this.COLS; c++) {
-    //   const colArray: TileModel[] = [];
-    //   for (let r = 0; r < this.ROWS; r++) {
-    //     colArray.push({ row: r, col: c, value: 0 });
-    //   }
-    //   this.board.push(colArray);
-    // }
+
     for (let r = 0; r < this.ROWS; r++) {
-      const rowArray: TileModel[] = [];
+      const rowArray: ITileModel[] = [];
       for (let c = 0; c < this.COLS; c++) {
         rowArray.push({ row: r, col: c, value: 0 });
       }
@@ -57,14 +58,15 @@ export class BoardComponent implements OnInit {
 
   // Try to drop a disc in the given column
   dropDisc(colIndex: number): boolean {
-    if (this.gameOver) return false;
+    if (this.gameOver) {
+      return false;
+    }
     for (let row = this.ROWS - 1; row > 0; row--) {
       const tile = this.board[row][colIndex];
       console.log(this.board);
       if (tile.value === 0) {
         console.log("Checking tile at row " + row + ", col " + colIndex);
         tile.value = this.currentPlayer;
-        this.moveMade.emit();
         if (this.checkWin(row, colIndex, this.currentPlayer)) {
           this.gameOver = true;
           this.gameWon.emit({ winner: this.currentPlayer });

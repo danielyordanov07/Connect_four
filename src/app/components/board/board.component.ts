@@ -21,6 +21,7 @@ export class BoardComponent implements OnInit, OnChanges {
   board: ITileModel[][] = [];
   currentPlayer: 1 | 2 = 1;
   gameOver = false;
+  winnerName: string = '';
 
   @Input() gameData: IData = {
     p1n: 'player 1',
@@ -28,7 +29,7 @@ export class BoardComponent implements OnInit, OnChanges {
     p1c: 'red',
     p2c: 'yellow'
   };
-  @Output() gameWon = new EventEmitter<{ winner: number, winningTiles?: ITileModel[] }>();
+  @Output() gameWon = new EventEmitter<void>();
 
   ngOnInit(): void {
     this.resetBoard();
@@ -69,10 +70,12 @@ export class BoardComponent implements OnInit, OnChanges {
         tile.value = this.currentPlayer;
         if (this.checkWin(row, colIndex, this.currentPlayer)) {
           this.gameOver = true;
-          this.gameWon.emit({ winner: this.currentPlayer });
+          alert(`Player ${this.currentPlayer} wins!`);
+          this.gameWon.emit();
         } else if (this.isBoardFull()) {
           this.gameOver = true;
-          this.gameWon.emit({ winner: 0 }); // tie
+          alert("It's a draw!");
+          this.gameWon.emit();
         } else {
           this.currentPlayer = this.currentPlayer === 1 ? 2 : 1;
         }

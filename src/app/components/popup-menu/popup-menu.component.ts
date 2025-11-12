@@ -30,5 +30,6 @@ export class PopupMenuComponent {
 
   restartG() {
     this.restartGame.emit(this.data);
+    console.log(this.data);
   }
 }

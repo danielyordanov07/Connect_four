@@ -33,11 +33,12 @@ export class AppComponent {
     this.popup = true;
   }
 
-  popupSwitch() {
+  popupSwitch(): void {
     this.popup = !this.popup;
   }
   restartGame(data: IData) {
     this.data = data;
+    console.log(data);
     this.popupSwitch();
   }
 }
